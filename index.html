@@ -7,10 +7,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: #0a0a0a;
       color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* FADE IN ON LOAD */
+    body {
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     header {
@@ -37,7 +49,20 @@
       margin-left: 20px;
       text-decoration: none;
       font-size: 0.9rem;
+      position: relative;
     }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 1px;
+      background: #fff;
+      transition: 0.3s;
+    }
+    nav a:hover::after { width: 100%; }
 
     .hero {
       min-height: 60vh;
@@ -55,11 +80,13 @@
     .hero h2 {
       font-size: 2.3rem;
       margin-bottom: 10px;
+      animation: slideUp 1s ease;
     }
 
     .hero p {
       color: #bbb;
       margin-bottom: 20px;
+      animation: slideUp 1.2s ease;
     }
 
     .insta-btn {
@@ -70,13 +97,20 @@
       font-weight: 600;
       text-decoration: none;
       transition: 0.3s;
+      animation: slideUp 1.4s ease;
     }
 
     .insta-btn:hover {
       background: #ddd;
+      transform: scale(1.05);
     }
 
-    /* SERVICES RIGHT AFTER HERO */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SERVICES */
     .services {
       padding: 50px 20px;
       text-align: center;
@@ -97,12 +131,19 @@
       background: #111;
       padding: 25px;
       border-radius: 20px;
-      transition: 0.3s;
+      transition: 0.4s;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-8px) scale(1.02);
       background: #1a1a1a;
     }
 
@@ -142,7 +183,6 @@
 <section class="hero">
   <h2>Premium Car Cleaning</h2>
   <p>Fast. Clean. Professional.</p>
-  <!-- INSERT YOUR INSTAGRAM LINK BELOW -->
   <a href="#" class="insta-btn">Contact on Instagram</a>
 </section>
 
@@ -167,13 +207,39 @@
 <section id="contact" class="services">
   <h2>Contact</h2>
   <p style="color:#aaa; margin-bottom:15px;">DM us on Instagram to book your cleaning.</p>
-  <!-- SAME LINK HERE -->
   <a href="#" class="insta-btn">Open Instagram</a>
 </section>
 
 <footer>
   <p>© 2026 BlackLine Car Care</p>
 </footer>
+
+<script>
+ // Prevent browser from restoring scroll position on refresh
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  // Force page to always start at top
+  window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+  });
+
+  // SCROLL REVEAL ANIMATION (service cards)
+  const cards = document.querySelectorAll('.card');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  cards.forEach(card => observer.observe(card));
+</script>
 
 </body>
 </html>
