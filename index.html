@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackLine Car Care</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-weight: 600;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+    }
+
+    nav a {
+      color: #ccc;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero h2 {
+      font-size: 2.3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #bbb;
+      margin-bottom: 20px;
+    }
+
+    .insta-btn {
+      padding: 12px 25px;
+      border-radius: 30px;
+      background: #fff;
+      color: #000;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .insta-btn:hover {
+      background: #ddd;
+    }
+
+    /* SERVICES RIGHT AFTER HERO */
+    .services {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .services h2 {
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #111;
+      padding: 25px;
+      border-radius: 20px;
+      transition: 0.3s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: #1a1a1a;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: #000;
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 { font-size: 1.9rem; }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hero h2 { font-size: 1.5rem; }
+      .cards { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>BLACKLINE</h1>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Premium Car Cleaning</h2>
+  <p>Fast. Clean. Professional.</p>
+  <!-- INSERT YOUR INSTAGRAM LINK BELOW -->
+  <a href="#" class="insta-btn">Contact on Instagram</a>
+</section>
+
+<section class="services" id="services">
+  <h2>Our Services</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Window Cleaning</h3>
+      <p>Crystal clear windows inside & out.</p>
+    </div>
+    <div class="card">
+      <h3>Interior Cleaning</h3>
+      <p>Deep cleaning for seats, dashboard & carpets.</p>
+    </div>
+    <div class="card">
+      <h3>Full Package</h3>
+      <p>Complete cleaning inside and outside.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="services">
+  <h2>Contact</h2>
+  <p style="color:#aaa; margin-bottom:15px;">DM us on Instagram to book your cleaning.</p>
+  <!-- SAME LINK HERE -->
+  <a href="#" class="insta-btn">Open Instagram</a>
+</section>
+
+<footer>
+  <p>© 2026 BlackLine Car Care</p>
+</footer>
+
+</body>
+</html>
