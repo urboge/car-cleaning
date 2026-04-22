@@ -1,245 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlackLine Car Care</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackLine Car Care</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      overflow-x: hidden;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* FADE IN ON LOAD */
-    body {
-      animation: fadeIn 1s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+        /* FADE IN ON LOAD */
+        body {
+            animation: fadeIn 1s ease;
+        }
 
-    header h1 {
-      font-weight: 600;
-      letter-spacing: 2px;
-      font-size: 1.2rem;
-    }
+        body::selection {
+            background-color: white;
+            color: black;
+        }
 
-    nav a {
-      color: #ccc;
-      margin-left: 20px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      position: relative;
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-      width: 0;
-      height: 1px;
-      background: #fff;
-      transition: 0.3s;
-    }
-    nav a:hover::after { width: 100%; }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .hero {
-      min-height: 60vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 40px 20px;
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2');
-      background-size: cover;
-      background-position: center;
-    }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-    .hero h2 {
-      font-size: 2.3rem;
-      margin-bottom: 10px;
-      animation: slideUp 1s ease;
-    }
+        header h1 {
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+        }
 
-    .hero p {
-      color: #bbb;
-      margin-bottom: 20px;
-      animation: slideUp 1.2s ease;
-    }
+        nav a {
+            color: #ccc;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            position: relative;
+        }
 
-    .insta-btn {
-      padding: 12px 25px;
-      border-radius: 30px;
-      background: #fff;
-      color: #000;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.3s;
-      animation: slideUp 1.4s ease;
-    }
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: 0.3s;
+        }
 
-    .insta-btn:hover {
-      background: #ddd;
-      transform: scale(1.05);
-    }
+        nav a:hover::after {
+            width: 100%;
+        }
 
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2');
+            background-size: cover;
+            background-position: center;
+        }
 
-    /* SERVICES */
-    .services {
-      padding: 50px 20px;
-      text-align: center;
-    }
+        .hero h2 {
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+            animation: slideUp 1s ease;
+        }
 
-    .services h2 {
-      margin-bottom: 30px;
-      font-size: 1.8rem;
-    }
+        .hero p {
+            color: #bbb;
+            margin-bottom: 20px;
+            animation: slideUp 1.2s ease;
+        }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
+        .insta-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            background: #fff;
+            color: #000;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            animation: slideUp 1.4s ease;
+        }
 
-    .card {
-      background: #111;
-      padding: 25px;
-      border-radius: 20px;
-      transition: 0.4s;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      opacity: 0;
-      transform: translateY(40px);
-    }
+        .insta-btn:hover {
+            background: #ddd;
+            transform: scale(1.05);
+        }
 
-    .card.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
 
-    .card:hover {
-      transform: translateY(-8px) scale(1.02);
-      background: #1a1a1a;
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    footer {
-      padding: 20px;
-      text-align: center;
-      background: #000;
-      color: #777;
-      font-size: 0.8rem;
-    }
+        /* SERVICES */
+        .services {
+            padding: 50px 20px;
+            text-align: center;
+        }
 
-    @media (max-width: 768px) {
-      .hero h2 { font-size: 1.9rem; }
-    }
+        .services h2 {
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
 
-    @media (max-width: 480px) {
-      header {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .hero h2 { font-size: 1.5rem; }
-      .cards { grid-template-columns: 1fr; }
-    }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
 
-  </style>
+        .card {
+            background: #111;
+            padding: 25px;
+            border-radius: 20px;
+            transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: #1a1a1a;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            background: #000;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 1.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .share-btn {
+            margin-left: 10px;
+            width: 46px;
+            height: 46px;
+            font-size: 20px;
+            transform: translateY(3px);
+            border-radius: 30px;
+            background: #fff;
+            color: #000;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            animation: slideUp 1.4s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .share-btn:hover {
+            background: #ddd;
+        }
+
+        .share-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .share-box {
+            background: #111;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            width: 280px;
+        }
+
+        .share-box img {
+            width: 150px;
+            height: 150px;
+            margin: 15px 0;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .link-box {
+            display: flex;
+            gap: 5px;
+        }
+
+        .link-box input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .link-box button {
+            padding: 8px 10px;
+            border: none;
+            border-radius: 10px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            margin-top: 15px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background: #fff;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
 
-<header>
-  <h1>TIMPRA</h1>
-  <nav>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+    <header>
+        <h1>TIMPRA</h1>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-<section class="hero">
-  <h2>Car Cleaning Luxembourg</h2>
-  <p>Fast. Clean. Professional.</p>
-  <a href="#" class="insta-btn">Contact on Instagram</a>
-</section>
+    <section class="hero">
+        <h2>Car Cleaning Luxembourg</h2>
+        <p>Fast. Clean. Professional.</p>
+        <a href="#" class="insta-btn">Contact on Instagram</a>
+    </section>
 
-<section class="services" id="services">
-  <h2>Our Services</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Window Cleaning</h3>
-      <p>Crystal clear windows inside & out.</p>
+    <section class="services" id="services">
+        <h2>Our Services</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Window Cleaning</h3>
+                <p>Crystal clear windows inside & out.</p>
+            </div>
+            <div class="card">
+                <h3>Interior Cleaning</h3>
+                <p>Deep cleaning for seats, dashboard & carpets.</p>
+            </div>
+            <div class="card">
+                <h3>Full Package</h3>
+                <p>Complete interior and windows cleaning.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="services">
+        <h2>Contact</h2>
+        <p style="color:#aaa; margin-bottom:15px;">DM us on Instagram to book your cleaning.</p>
+        <a href="#" class="insta-btn">Open Instagram</a><button id="shareBtn" class="share-btn"><ion-icon
+                name="share-outline"></ion-icon></button>
+    </section>
+
+    <footer>
+        <p>© 2026 TIMPRA</p>
+    </footer>
+
+    <div id="shareMenu" class="share-menu">
+        <div class="share-box">
+            <h3>Share this page</h3>
+
+            <!-- QR Code -->
+            <img id="qrCode" src="" alt="QR Code">
+
+            <!-- Link -->
+            <div class="link-box">
+                <input type="text" id="shareLink" readonly>
+                <button id="copy-link" onclick="copyLink()">Copy</button>
+            </div>
+
+            <button class="close-btn" onclick="toggleShare()">Close</button>
+        </div>
     </div>
-    <div class="card">
-      <h3>Interior Cleaning</h3>
-      <p>Deep cleaning for seats, dashboard & carpets.</p>
-    </div>
-    <div class="card">
-      <h3>Full Package</h3>
-      <p>Complete interior and windows cleaning.</p>
-    </div>
-  </div>
-</section>
 
-<section id="contact" class="services">
-  <h2>Contact</h2>
-  <p style="color:#aaa; margin-bottom:15px;">DM us on Instagram to book your cleaning.</p>
-  <a href="#" class="insta-btn">Open Instagram</a>
-</section>
+    <script>
+        // Prevent browser from restoring scroll position on refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
 
-<footer>
-  <p>© 2026 TIMPRA</p>
-</footer>
+        // Force page to always start at top
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
 
-<script>
- // Prevent browser from restoring scroll position on refresh
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
+        // SCROLL REVEAL ANIMATION (service cards)
+        const cards = document.querySelectorAll('.card');
 
-  // Force page to always start at top
-  window.addEventListener('load', () => {
-    window.scrollTo(0, 0);
-  });
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
 
-  // SCROLL REVEAL ANIMATION (service cards)
-  const cards = document.querySelectorAll('.card');
+        cards.forEach(card => observer.observe(card));
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
-    });
-  }, {
-    threshold: 0.2
-  });
+        const shareBtn = document.getElementById("shareBtn");
+const shareMenu = document.getElementById("shareMenu");
+const shareLink = document.getElementById("shareLink");
+const qrCode = document.getElementById("qrCode");
 
-  cards.forEach(card => observer.observe(card));
-</script>
+// Open/close menu
+function toggleShare() {
+  shareMenu.style.display = 
+    shareMenu.style.display === "flex" ? "none" : "flex";
+}
+
+// Open on button click
+shareBtn.addEventListener("click", () => {
+  toggleShare();
+
+  const url = "https://urboge.github.io/car-cleaning/";
+
+  // Set link
+  shareLink.value = url;
+
+  // Generate QR code (free API)
+  qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+});
+
+// Copy link
+function copyLink() {
+  shareLink.select();
+  document.execCommand("copy");
+  document.getElementById("copy-link").innerText = "copied";
+  setTimeout(() => {document.getElementById("copy-link").innerText = "copy";}, 1500);
+}
+    </script>
 
 </body>
+
 </html>
