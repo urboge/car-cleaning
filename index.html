@@ -295,7 +295,8 @@
         #rating-btn {
             width: 60px;
             height: 60px;
-            background-color: white;
+            background-color: rgba(30, 30, 30, 0.5);
+            backdrop-filter: blur(10px);
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -303,9 +304,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: black;
+            color: rgb(255, 255, 255);
             font-size: 25px;
             transition: 0.2s;
+            border: solid 2px white;
         }
         #rating-btn:hover {
             transform: translateY(-10px);
