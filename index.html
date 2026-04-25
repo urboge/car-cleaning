@@ -8,6 +8,12 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+    <meta name="google-site-verification" content="towRm0AJ_ykkWyaZT9FQvjIpeUVEExwym4rMVAPeRgo" />
+
+
+    
     <style>
         * {
             margin: 0;
@@ -309,6 +315,7 @@
             transition: 0.2s;
             border: solid 2px rgba(255, 255, 255, 0.7);
         }
+
         #rating-btn:hover {
             transform: translateY(-10px);
         }
@@ -406,36 +413,36 @@
         cards.forEach(card => observer.observe(card));
 
         const shareBtn = document.getElementById("shareBtn");
-const shareMenu = document.getElementById("shareMenu");
-const shareLink = document.getElementById("shareLink");
-const qrCode = document.getElementById("qrCode");
+        const shareMenu = document.getElementById("shareMenu");
+        const shareLink = document.getElementById("shareLink");
+        const qrCode = document.getElementById("qrCode");
 
-// Open/close menu
-function toggleShare() {
-  shareMenu.style.display = 
-    shareMenu.style.display === "flex" ? "none" : "flex";
-}
+        // Open/close menu
+        function toggleShare() {
+            shareMenu.style.display =
+                shareMenu.style.display === "flex" ? "none" : "flex";
+        }
 
-// Open on button click
-shareBtn.addEventListener("click", () => {
-  toggleShare();
+        // Open on button click
+        shareBtn.addEventListener("click", () => {
+            toggleShare();
 
-  const url = "https://urboge.github.io/car-cleaning/";
+            const url = "https://urboge.github.io/car-cleaning/";
 
-  // Set link
-  shareLink.value = url;
+            // Set link
+            shareLink.value = url;
 
-  // Generate QR code (free API)
-  qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
-});
+            // Generate QR code (free API)
+            qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+        });
 
-// Copy link
-function copyLink() {
-  shareLink.select();
-  document.execCommand("copy");
-  document.getElementById("copy-link").innerText = "copied";
-  setTimeout(() => {document.getElementById("copy-link").innerText = "copy";}, 1500);
-}
+        // Copy link
+        function copyLink() {
+            shareLink.select();
+            document.execCommand("copy");
+            document.getElementById("copy-link").innerText = "copied";
+            setTimeout(() => { document.getElementById("copy-link").innerText = "copy"; }, 1500);
+        }
     </script>
 
 </body>
