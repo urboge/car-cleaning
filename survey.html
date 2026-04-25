@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIMPRA Survey</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {margin:0;padding:0;box-sizing:border-box;}
+
+body {
+    font-family:'Poppins',sans-serif;
+    background:#0a0a0a;
+    color:#fff;
+    animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(10px);}
+    to {opacity:1;}
+}
+
+header {
+    display:flex;
+    justify-content:space-between;
+    padding:15px 30px;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(10px);
+}
+
+.container {
+    max-width:500px;
+    margin:60px auto;
+    padding:20px;
+}
+
+h2 {
+    text-align:center;
+    margin-bottom:30px;
+}
+
+/* QUESTION ANIMATION */
+.question {
+    margin-bottom:30px;
+    opacity:0;
+    transform:translateY(20px);
+    animation:slideUp 0.6s forwards;
+}
+
+.question:nth-child(1){animation-delay:0.2s;}
+.question:nth-child(2){animation-delay:0.4s;}
+.question:nth-child(3){animation-delay:0.6s;}
+
+@keyframes slideUp {
+    to {opacity:1; transform:translateY(0);}
+}
+
+/* ⭐ STAR RATING */
+.stars {
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+
+.star {
+    font-size:30px;
+    cursor:pointer;
+    color:#444;
+    transition:0.2s;
+}
+
+.star.active {
+    color:gold;
+    transform:scale(1.1);
+}
+
+/* TEXTAREA */
+textarea {
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    margin-top:10px;
+    resize:none;
+}
+
+/* BUTTON */
+button {
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:30px;
+    background:#fff;
+    color:#000;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover {
+    background:#ddd;
+    transform:scale(1.03);
+}
+
+.success {
+    text-align:center;
+    margin-top:20px;
+    display:none;
+    color:#0f0;
+}
+
+@media(max-width:500px){
+    .container {margin:30px 15px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>TIMPRA</h1>
+</header>
+
+<div class="container">
+    <h2>Quick Survey</h2>
+
+    <form id="surveyForm">
+
+        <!-- Quality -->
+        <div class="question">
+            <p>Cleaning quality</p>
+            <div class="stars" data-name="quality"></div>
+        </div>
+
+        <!-- Speed -->
+        <div class="question">
+            <p>Was it fast?</p>
+            <div class="stars" data-name="speed"></div>
+        </div>
+
+        <!-- Comment -->
+        <div class="question">
+            <p>Any comments?</p>
+            <textarea name="comment" rows="4" placeholder="Write your feedback..."></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <div class="success" id="successMsg">
+        ✅ Thanks for your feedback!
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const SUPABASE_URL = "https://qoxjseltqjvhokvweyuv.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFveGpzZWx0cWp2aG9rdndleXV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxMDg5MTcsImV4cCI6MjA5MjY4NDkxN30.0xgVOxsj8A8udjRNgN9dk1dScdVzU9ghlfGpU6dXZo0";
+
+    const form = document.getElementById("surveyForm");
+    const successMsg = document.getElementById("successMsg");
+
+    document.querySelectorAll(".stars").forEach(container => {
+        for (let i = 1; i <= 5; i++) {
+            const star = document.createElement("span");
+            star.innerHTML = "★";
+            star.classList.add("star");
+            star.dataset.value = i;
+
+            star.addEventListener("click", () => {
+                const stars = container.querySelectorAll(".star");
+
+                stars.forEach(s => s.classList.remove("active"));
+
+                stars.forEach(s => {
+                    if (s.dataset.value <= i) {
+                        s.classList.add("active");
+                    }
+                });
+
+                container.dataset.selected = i;
+            });
+
+            container.appendChild(star);
+        }
+    });
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const quality = Number(document.querySelector('[data-name="quality"]').dataset.selected);
+        const speed = Number(document.querySelector('[data-name="speed"]').dataset.selected);
+        const comment = form.comment.value;
+
+        const data = { quality, speed, comment };
+
+        const res = await fetch(
+            SUPABASE_URL + "/rest/v1/survey_responses",
+            {
+                method: "POST",
+                headers: {
+                    apikey: SUPABASE_KEY,
+                    Authorization: "Bearer " + SUPABASE_KEY,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        if (!res.ok) {
+            console.error(await res.text());
+            alert("Error submitting survey");
+            return;
+        }
+
+        form.reset();
+        document.querySelectorAll(".star").forEach(s => s.classList.remove("active"));
+        successMsg.style.display = "block";
+    });
+
+});
+</script>
+
+</body>
+</html>
