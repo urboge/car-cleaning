@@ -32,6 +32,16 @@
             overflow-x: hidden;
         }
 
+        /* For Chrome, Safari, Edge */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* For Firefox */
+        body {
+            scrollbar-width: none;
+        }
+
         /* FADE IN ON LOAD */
         body {
             animation: fadeIn 1s ease;
