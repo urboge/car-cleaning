@@ -17,6 +17,11 @@ body {
     animation:fadeIn 1s ease;
 }
 
+body::selection {
+            background-color: white;
+            color: black;
+}
+
 @keyframes fadeIn {
     from {opacity:0; transform:translateY(10px);}
     to {opacity:1;}
@@ -34,6 +39,11 @@ header {
     max-width:500px;
     margin:60px auto;
     padding:20px;
+}
+
+h1 a {
+    text-decoration: none;
+    color: white;
 }
 
 h2 {
@@ -120,7 +130,7 @@ button:hover {
 <body>
 
 <header>
-    <h1>TIMPRA</h1>
+    <h1><a href="index.html">TIMPRA</a></h1>
 </header>
 
 <div class="container">
