@@ -67,7 +67,7 @@
             text-align: center;
             padding: 40px 20px;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
-                        url('images/hero.jpg');
+                        url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2');
             background-size: cover;
             background-position: center;
         }
@@ -130,15 +130,71 @@
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
         .gallery-item.show { opacity: 1; transform: translateY(0); }
+
+        /* Placeholder shown before image loads */
+        .placeholder {
+            position: absolute;
+            inset: 0;
+            filter: blur(18px);
+            transform: scale(1.1); /* hide blur edges */
+            transition: opacity 0.5s ease;
+            opacity: 1;
+        }
+        .placeholder.hide { opacity: 0; pointer-events: none; }
+
+        /* Car-interior-like gradient palettes, cycling per item */
+        .palette-0 {
+            background:
+                radial-gradient(ellipse at 30% 60%, #3a2a1a 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 40%, #1a1208 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 80%, #5c3d1e 0%, transparent 50%),
+                linear-gradient(160deg, #0d0d0d 0%, #2a1a0a 50%, #1a1008 100%);
+        }
+        .palette-1 {
+            background:
+                radial-gradient(ellipse at 40% 55%, #1c1c1c 0%, transparent 60%),
+                radial-gradient(ellipse at 65% 35%, #2e2e2e 0%, transparent 55%),
+                radial-gradient(ellipse at 25% 75%, #111 0%, transparent 50%),
+                linear-gradient(150deg, #0a0a0a 0%, #222 50%, #111 100%);
+        }
+        .palette-2 {
+            background:
+                radial-gradient(ellipse at 35% 60%, #2a1f14 0%, transparent 55%),
+                radial-gradient(ellipse at 68% 38%, #1e1510 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 85%, #4a3520 0%, transparent 45%),
+                linear-gradient(155deg, #100c08 0%, #3a2a18 55%, #1a1208 100%);
+        }
+        .palette-3 {
+            background:
+                radial-gradient(ellipse at 45% 50%, #181818 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, #282828 0%, transparent 55%),
+                radial-gradient(ellipse at 20% 70%, #202020 0%, transparent 50%),
+                linear-gradient(145deg, #0c0c0c 0%, #1e1e1e 50%, #141414 100%);
+        }
+        .palette-4 {
+            background:
+                radial-gradient(ellipse at 30% 65%, #251a0e 0%, transparent 55%),
+                radial-gradient(ellipse at 72% 42%, #1a1208 0%, transparent 50%),
+                radial-gradient(ellipse at 55% 80%, #3d2b12 0%, transparent 48%),
+                linear-gradient(158deg, #0e0a05 0%, #2e2010 55%, #160f05 100%);
+        }
+
         .gallery-item img {
             width: 100%;
+            min-height: 350px;
             display: block;
-            transition: transform 0.5s ease;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
         }
+        .gallery-item img.loaded { opacity: 1; }
         .gallery-item:hover img { transform: scale(1.04); }
+
         .gallery-item .overlay {
             position: absolute;
             inset: 0;
+            z-index: 2;
             background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%);
             opacity: 0;
             transition: opacity 0.3s;
@@ -217,13 +273,10 @@
             font-size: 0.8rem;
         }
 
-        /* MOBILE: one photo per line */
         @media (max-width: 480px) {
             header { flex-direction: column; gap: 10px; }
             .hero h2 { font-size: 1.5rem; }
-            .gallery {
-                columns: 1;
-            }
+            .gallery { columns: 1; }
         }
     </style>
 </head>
@@ -233,7 +286,8 @@
     <h1>TIMPRA</h1>
     <nav>
         <a href="index.html">Home</a>
-        <a href="survey.html">Rate us</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#contact">Contact</a>
     </nav>
 </header>
 
@@ -271,8 +325,8 @@
     // tag   → 'interior' | 'windows'
     // ─────────────────────────────────────────────────────────────────────────
     const photos = [
-        { src: "images/cars/1.png", label: "Audi – Interior", tag: "interior" },
-        { src: "images/cars/2.png", label: "Audi – Interior", tag: "interior" }
+        { src: "images/cars/1.png", label: "BMW 3 Series – Interior", tag: "interior" },
+        { src: "images/cars/1.png", label: "BMW 3 Series – Interior", tag: "interior" },
     ];
     // ─────────────────────────────────────────────────────────────────────────
 
@@ -291,11 +345,27 @@
         visiblePhotos().forEach((photo, i) => {
             const item = document.createElement('div');
             item.className = 'gallery-item';
+
+            // Cycle through 5 car-interior palettes
+            const paletteClass = `palette-${i % 5}`;
+
             item.innerHTML = `
-                <img src="${photo.src}" alt="${photo.label}" loading="lazy">
+                <div class="placeholder ${paletteClass}"></div>
+                <img src="${photo.src}" alt="${photo.label}" loading="lazy" decoding="async">
                 <div class="overlay">
                     <span class="overlay-label">${photo.label}</span>
                 </div>`;
+
+            // Fade in image and hide placeholder once loaded
+            const img = item.querySelector('img');
+            const placeholder = item.querySelector('.placeholder');
+            const onLoad = () => {
+                img.classList.add('loaded');
+                placeholder.classList.add('hide');
+            };
+            img.onload = onLoad;
+            if (img.complete) onLoad();
+
             item.addEventListener('click', () => openLightbox(i));
             gallery.appendChild(item);
             setTimeout(() => item.classList.add('show'), i * 70);
